@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Searchbar from './Searchbar'
 function User() {
     return (
-        <div>User</div>
+        <section className='userPage'>
+        <Searchbar ArrayOptions={["ID","Name", "Read","Write","Execute"]}/>
+        </section>
     )
 }
 

@@ -1,26 +1,14 @@
 import React from 'react'
+import SearchBar from './Searchbar.js'
+import ItemCards from './ItemsCard'
 
 function Apps() {
     return (
         <section className="appPage">
-
-
-            <div className="card">
-                <div className="cardheader">
-                    <h1>Apps: Name</h1>
-                </div>
-                <div className="cardBody">
-                    <h1>Apps: Name</h1>
-                </div>
-                <div className="cardFooter">
-                    <ul>
-                        <li>Add</li>
-                        <li>Remove</li>
-                        <li>Modify</li>
-                    </ul>
-                </div>
-            </div>
-
+        <SearchBar ArrayOptions={["Name", "Type", "Version", "License"]}/>
+        <div className='itemContainers'>
+        <ItemCards />
+        </div>
         </section>
     )
 }

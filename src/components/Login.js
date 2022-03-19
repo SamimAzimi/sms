@@ -44,12 +44,12 @@ function Login() {
     return (
         <>
             <secion className="loginPage">
-                <form onSubmit={handleSubmit}>
-                    <lable>ID</lable>
-                    <input value={user.ID} onChange={handleChange} type="text" name="ID" placeholder="Enter Your ID" />
-                    <lable>Password</lable>
-                    <input value={user.Password} onChange={handleChange} type="text" name="Password" placeholder="Enter Your Password" />
-                    <button type="submit">Sign In</button>
+                <form onSubmit={handleSubmit} className="loginForm"> 
+                    <label>ID</label>
+                    <input className="loginInput" value={user.ID} onChange={handleChange} type="text" name="ID" placeholder="Enter Your ID" />
+                    <label>Password</label>
+                    <input  className="loginInput" value={user.Password} onChange={handleChange} type="text" name="Password" placeholder="Enter Your Password" />
+                    <button type="submit" className='loginSubmit'>Sign In</button>
                 </form>
                 <img className="loginPageAssets" src={SVG} alt="svg" />
                 <ToastContainer />

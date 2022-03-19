@@ -1,8 +1,11 @@
 import React from 'react'
-
+import Searchbar from './Searchbar'
 function Sites() {
     return (
-        <div>Sites</div>
+        <section className='sitesPage'>
+        <Searchbar ArrayOptions={["Name","Address", "ContactNumber","Hardware","Note"]}/>
+            <div>Sites</div>
+        </section>
     )
 }
 

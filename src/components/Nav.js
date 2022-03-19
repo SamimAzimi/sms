@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import Searchbar from './Searchbar'
 function Nav() {
     let navigate = useNavigate()
     const [auth, setAuth] = useState();
@@ -11,7 +10,7 @@ function Nav() {
 
             setAuth(false)
         }
-    })
+    },[])
     const handleSignOut = () => {
         localStorage.removeItem("Authorization")
         navigate("/Login");
@@ -28,7 +27,6 @@ function Nav() {
                 </ul>
                 {auth && <button className="logOutbtn" onClick={handleSignOut}>Sign Out</button>}
             </nav>
-            <Searchbar />
 
         </>
     )

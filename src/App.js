@@ -10,13 +10,12 @@ import Hardware from './components/Hardware';
 import Sites from './components/Sites'
 import Reports from './components/Reports'
 import Nav from './components/Nav'
-import { Routes, Route, Outlet } from "react-router-dom";
-import { useState } from 'react';
+import { Routes, Route } from "react-router-dom";
 import PrivateRoute from './components/PrivateRoute';
 import "react-toastify/dist/ReactToastify.css";
 function App() {
 
-  const [user, setUser] = useState();
+
 
   return (
     <>

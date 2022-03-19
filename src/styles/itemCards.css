@@ -1,0 +1,66 @@
+.itemCards {
+  display: grid;
+  width: 20%;
+  align-items: center;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: repeat(5, 18%);
+  grid-column-gap: 10px;
+  grid-row-gap: 2px;
+  padding: 20px;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.8px);
+  -webkit-backdrop-filter: blur(7.8px);
+  border: 1px solid rgba(255, 255, 255, 1);
+}
+.itemContainers {
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-wrap: wrap;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+.confirmType {
+  color: red;
+  font-weight: bolder;
+}
+.cardItemInput:disabled {
+  background-color: unset;
+  outline: none;
+  border: none;
+  font-size: large;
+  width: auto;
+}
+.Confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 2px;
+  grid-area: 5 / 1 / 6 / 3;
+}
+
+.Confirmation > button {
+}
+.itemOptions {
+  grid-area: 1 / 2 / 5 / 3;
+}
+.itemOptions > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: space-around;
+}
+.itemBody {
+  grid-area: 1 / 1 / 5 / 2;
+}
+.itemBody > div {
+  display: flex;
+  flex-direction: column;
+}

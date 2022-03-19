@@ -1,19 +1,18 @@
 import React from 'react'
 
-function Searchbar() {
+function Searchbar({ArrayOptions}) {
     return (
         <aside className="searchbar">
             <select name="options" id="options">
-                <option value="volvo">Apps</option>
-                <option value="saab">Hardwares</option>
-                <option value="mercedes">Users</option>
-                <option value="audi">Sites</option>
-                <option value="volvo">Type</option>
-                <option value="saab">MakeModel</option>
-                <option value="mercedes">Address</option>
-                <option value="audi">CPU</option>
+
+                {ArrayOptions &&  ArrayOptions.map((option)=>{
+                    return (
+                          <option id="option" value={option}>{option}</option>
+                    )
+                })}
+
             </select>
-            <input type="search" />
+            <input className='searchbarInput' type="search" />
             <button>Search..</button>
         </aside>
 
