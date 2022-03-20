@@ -10,7 +10,7 @@ function Nav() {
 
             setAuth(false)
         }
-    },[])
+    }, [])
     const handleSignOut = () => {
         localStorage.removeItem("Authorization")
         navigate("/Login");
