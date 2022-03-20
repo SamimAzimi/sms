@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import '../../styles/itemCards.css'
+import '../../styles/hardwareitems.css'
 import axios from 'axios'
+
+
+
 function HardwareItems({ URL }) {
 
-
+    const [Open,setOpen] = useState({
+        id:"",
+        Statue:"",
+    });
+    const handleAccordion=(e)=>{
+        setOpen({
+            id:e.id,
+            Statue:e.Statue,
+        })
+    }
     const [editForm, setEditForm] = useState({
         MakeModel: "",
         ServiceTagSerialNo: "",
@@ -14,8 +26,15 @@ function HardwareItems({ URL }) {
         DVDDrive: "",
         PowerSupply: "",
         PowerSettoNever: "",
-        Apps: "",
-        UpdateInstalled: "",
+        Apps: {
+            Name:"",
+            Version:"",
+        },
+        UpdateInstalled: {
+            Status: "",
+            Type: "",
+            DateOfInstalled: "",
+        },
         Credentials: "",
 
     })
@@ -40,8 +59,32 @@ function HardwareItems({ URL }) {
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        setEditForm({ ...editForm, [name]: value })
-        console.log(editForm)
+
+
+        if (name == 'MakeModel' || 
+        name == 'ServiceTagSerialNo' 
+        || name == "CPU" || 
+        name == 'RAM' 
+        ||
+        name == 'HDD' 
+        ||
+        name == 'Graphic' 
+        ||
+        name == 'DVDDrive' 
+        ||name == 'PowerSupply' 
+        ||name == 'PowerSettoNever' 
+        ) {
+            setEditForm({ ...editForm, [name]: value })
+        } else if (name == 'Status' || name == 'Type' || name == "DateOfInstalled" ) {
+
+            setEditForm({
+                ...editForm,
+                UpdateInstalled: {
+                    ...editForm.Rights,
+                    [name]: value
+                }
+            })
+        }
     }
     const handleEdit = (e) => {
         const oneItem = data.find(x => x._id == e.id)
@@ -56,9 +99,9 @@ function HardwareItems({ URL }) {
 
             {data && data.map((data) => {
                 return (
-                    <div key={data._id} className='itemCards'>
-                        <div className='itemBody'>
-
+                    <div key={data._id} className='itemCardsHardware'>
+                        <div className='itemBodyhw'>
+                            <div className='grouphardware'>
                             <div>
                                 <span className='confirmType'>Model: </span>
                                 <input className='cardItemInput'
@@ -146,36 +189,114 @@ function HardwareItems({ URL }) {
                                 />
 
                             </div>
-
+                            </div>
+                            <div className='secondGroupHw'>
                             <div>
-                                <span className='confirmType'>Update Installed: </span>
-                                <input className='cardItemInput'
+                                 <div className='hardwareAccordion' onClick={()=>setOpen({
+                                                            id:data._id,
+                                                            Statue:!Open.Statue,
+                                                            Type: "UI"
+                                                })}>
+
+                                <span className='confirmType'>Update Installed:: </span>
+                                 <div className='hardwareAccordionIcon'>{Open ? "+": "-"}</div>
+                                </div>
+                                 {Open.id== data._id && Open.Statue && Open.Type ==="UI" && data.UpdateInstalled.map((UI)=>{
+                                    return(
+                                        <div className='credGroups'>              
+                                     <span>Status: </span>
+                                       <input className='cardItemInput'
                                     onChange={handleChange}
                                     disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
-                                    value={confirmOpen.id === data._id ? editForm.UpdateInstalled : data.UpdateInstalled} name="UpdateInstalled"
+                                    value={confirmOpen.id === data._id ? editForm.UpdateInstalled.Status : UI.Status} name="Status"
+                                    type="text"
+                                />
+                                 
+                                     <span>Date of Installed: </span>
+                                  <input className='cardItemInput'
+                                    onChange={handleChange}
+                                    disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
+                                    value={confirmOpen.id === data._id ? editForm.UpdateInstalled.DateOfInstalled : UI.DateOfInstalled} name="DateOfInstalled"
+                                    type="text"
+                                />
+                                     <span>Type:</span>
+                             <input className='cardItemInput'
+                                    onChange={handleChange}
+                                    disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
+                                    value={confirmOpen.id === data._id ? editForm.UpdateInstalled.Type : UI.Type} name="Type"
                                     type="text"
                                 />
 
+                                     
+                                    </div>
+                                    )
+                                })}
+                        
+
                             </div>
                             <div>
+                                <div className='hardwareAccordion' onClick={()=>setOpen({
+                                                            id:data._id,
+                                                            Statue:!Open.Statue,
+                                                            Type: "Credentials"
+                                                })}>
+
                                 <span className='confirmType'>Credentials: </span>
-                                <input className='cardItemInput'
-                                    onChange={handleChange}
-                                    disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
-                                    value={confirmOpen.id === data._id ? editForm.Credentials : data.Credentials} name="Credentials"
-                                    type="text"
-                                />
+                                 <div className='hardwareAccordionIcon'>{Open ? "+": "-"}</div>
+                                </div>
+                            
+                                
+                                {Open.id== data._id && Open.Statue && Open.Type ==="Credentials" && data.Credentials.map((cred)=>{
+                                    return(
+                                        <div className='credGroups'>              
+                                     <span>Apps Name: </span>
+                                     <span>{cred.AppsName.Name}</span>
+                                     <span>Apps Version: </span>
+                                     <span>{cred.AppsName.Version}</span>
+                                     <span>User Name:</span>
+                                     <span>{cred.UserName}</span>
+                                     <span>Password: </span>
+                                     <span>{cred.Password}</span>        
+                                    </div>
+                                    )
+                                })}
 
                             </div>
                             <div>
-                                <span className='confirmType'>Apps: </span>
-                                <input className='cardItemInput'
+           
+                                 <div className='hardwareAccordion' onClick={()=>setOpen({
+                                                            id:data._id,
+                                                            Statue:!Open.Statue,
+                                                            Type: "Apps"
+                                                })}>
+
+                                <span className='confirmType'>Apps:  </span>
+                                 <div className='hardwareAccordionIcon'>{Open ? "+": "-"}</div>
+                                </div>
+                                 {Open.id== data._id && Open.Statue && Open.Type ==="Apps" && data.Apps.map((App)=>{
+                                    return(
+                                        <div className='credGroups'>              
+                                     <span>Name: </span>
+                                       <input className='cardItemInput'
                                     onChange={handleChange}
                                     disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
-                                    value={confirmOpen.id === data._id ? editForm.Apps : data.Apps} name="Apps"
+                                    value={confirmOpen.id === data._id ? editForm.Apps.Name : App.Name} name="Name"
                                     type="text"
                                 />
-
+                                 
+                                     <span>Version: </span>
+                                  <input className='cardItemInput'
+                                    onChange={handleChange}
+                                    disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
+                                    value={confirmOpen.id === data._id ? editForm.Apps.Version :App.Version} name="Version"
+                                    type="text"
+                                />
+                                <button>Remove</button>
+                                    </div>
+                                    )
+                                })}
+                                
+                            </div>
                             </div>
                         </div>
                         <div className='itemOptions'>
@@ -200,6 +321,7 @@ function HardwareItems({ URL }) {
 
         </>
     )
-}
+} 
+
 
 export default HardwareItems

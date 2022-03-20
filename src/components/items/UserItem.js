@@ -39,7 +39,7 @@ function UserItemsCard({ URL }) {
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-
+ 
         if (name == 'Name' || name == 'ID' || name == "Password") {
             setEditForm({ ...editForm, [name]: value })
         } else if (name == 'Read' || name == 'Write' || name == 'Execute') {

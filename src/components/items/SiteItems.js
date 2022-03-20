@@ -80,6 +80,8 @@ function SiteItems({ URL }) {
                             </div>
                             <div>
                                 <span className='confirmType'>Hardware: </span>
+
+    
                                 <input className='cardItemInput'
                                     onChange={handleChange}
                                     disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
