@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/itemCards.css'
 import axios from 'axios'
-function UserItemsCard({ URL }) {
+function UserItemsCard({ URL, data, setData }) {
 
 
     const [editForm, setEditForm] = useState({
@@ -15,7 +15,7 @@ function UserItemsCard({ URL }) {
         },
     })
     const [confirmOpen, setconfirmOpen] = useState(false);
-    const [data, setData] = useState();
+
     useEffect(() => {
         async function fetchData() {
             axios.get(URL).then(
@@ -39,7 +39,7 @@ function UserItemsCard({ URL }) {
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
- 
+
         if (name == 'Name' || name == 'ID' || name == "Password") {
             setEditForm({ ...editForm, [name]: value })
         } else if (name == 'Read' || name == 'Write' || name == 'Execute') {

@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchBar from './Searchbar.js'
 import ItemCards from './items/AppsItemsCard'
 
 function Apps() {
+    const [data, setData] = useState();
+
     return (
         <section className="appPage">
-            <SearchBar ArrayOptions={["Name", "Type", "Version", "License"]} />
+            <SearchBar ArrayOptions={["Name", "Type", "Version", "License"]} setData={setData} />
             <div className='itemContainers'>
-                <ItemCards URL={"http://localhost:4000/api/allApps"} />
+                <ItemCards URL={"https://servicemanagementsystem.herokuapp.com/api/allApps"} data={data} setData={setData} />
             </div>
         </section>
     )

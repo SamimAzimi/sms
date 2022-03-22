@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/itemCards.css'
 import axios from 'axios'
-function AppsItemsCard({ URL }) {
+function AppsItemsCard({ URL, data, setData }) {
 
 
     const [editForm, setEditForm] = useState({
@@ -11,7 +11,7 @@ function AppsItemsCard({ URL }) {
         License: "",
     })
     const [confirmOpen, setconfirmOpen] = useState(false);
-    const [data, setData] = useState();
+
     useEffect(() => {
         async function fetchData() {
             axios.get(URL).then(

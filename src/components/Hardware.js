@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Searchbar from './Searchbar'
 import HardwareItems from './items/HardwareItem'
 function Hardware() {
+    const [data, setData] = useState();
     return (
         <section className='hardwarePage'>
-            <Searchbar ArrayOptions={["MakeModel", "SerialNo", "CPU", "RAM", "Graphic", "DVDDrive", "PowerSupply", "PowerSettoNever", "Apps"]} />
+            <Searchbar ArrayOptions={["MakeModel", "SerialNo", "CPU", "RAM", "Graphic", "DVDDrive", "PowerSupply", "PowerSettoNever", "Apps"]} setData={setData} />
 
             <div className='itemContainers'>
-                <HardwareItems URL={"http://localhost:4000/api/allHardwares"} />
+                <HardwareItems URL={"https://servicemanagementsystem.herokuapp.com/api/allHardwares"} data={data} setData={setData} />
             </div>
         </section>
     )

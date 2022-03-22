@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/itemCards.css'
 import axios from 'axios'
-function SiteItems({ URL }) {
+function SiteItems({ URL,data,setData }) {
 
-
+    const [Open, setOpen] = useState({
+        id: "",
+        Statue: "",
+        Type: "",
+    });
     const [editForm, setEditForm] = useState({
         Name: "",
         Address: "",
@@ -12,7 +16,7 @@ function SiteItems({ URL }) {
         Note: "",
     })
     const [confirmOpen, setconfirmOpen] = useState(false);
-    const [data, setData] = useState();
+  
     useEffect(() => {
         async function fetchData() {
             axios.get(URL).then(
@@ -79,15 +83,23 @@ function SiteItems({ URL }) {
                                 />
                             </div>
                             <div>
-                                <span className='confirmType'>Hardware: </span>
 
-    
-                                <input className='cardItemInput'
+                                <span className='confirmType'>Hardware: </span>
+                                {data.Hardware.map(hw => {
+                                    return (
+                                        <>
+                                            <p>Model: {hw.MakeModel}</p>
+                                            <p>SerialNo: {hw.ServiceTagSerialNo}</p>
+                                        </>
+                                    )
+                                })}
+
+                                {/* <input className='cardItemInput'
                                     onChange={handleChange}
                                     disabled={confirmOpen.type === "Edit" && confirmOpen.id === data._id ? null : 'disabled'}
                                     value={confirmOpen.id === data._id ? editForm.Hardware : data.Hardware} name="Hardware"
                                     type="text"
-                                />
+                                /> */}
 
                             </div>
                             <div>
