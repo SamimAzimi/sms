@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faQrcode, faBarcode, faMicrochip,
@@ -7,13 +7,27 @@ import {
 
 } from '@fortawesome/free-solid-svg-icons';
 
-function HardwareSection({ hardwareData, setHardwareData }) {
+function HardwareEntry() {
+    const [hardwareData, setHardwareData] = useState(
+        {
+            MakeModel: '',
+            ServiceTagSerialNo: '',
+            CPU: '',
+            CPUQt: Number,
+            RAM: Number,
+            HDD: Number,
+            Graphic: '',
+            DVDDrive: '',
+            PowerSupply: '',
+            PowerSettoNever: Boolean,
+        }
+    );
     return (
         <>
             <h1>
                 Hardware Section
             </h1>
-            <div class="d-flex flex-wrap">
+            <div class="d-flex flex-column">
                 <div class="input-group flex-nowrap w-50 p-3">
                     <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faQrcode} /></span>
                     <input type="text" class="form-control"
@@ -32,7 +46,7 @@ function HardwareSection({ hardwareData, setHardwareData }) {
                         onChange={e => setHardwareData({ ...hardwareData, ServiceTagSerialNo: e.target.value })}
                         aria-describedby="addon-wrapping" required />
                 </div>
-                <div class="d-flex ">
+                <div class="d-flex flex-column ">
                     <div class="input-group flex-nowrap w-50 p-3">
                         <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faMicrochip} /></span>
                         <input type="text" class="form-control"
@@ -72,7 +86,7 @@ function HardwareSection({ hardwareData, setHardwareData }) {
                         <span class="input-group-text">GB</span>
                     </div>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex ">
                     <div class="input-group flex-nowrap w-50 p-3">
                         <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faTachographDigital} /></span>
                         <input type="text" class="form-control"
@@ -124,4 +138,4 @@ function HardwareSection({ hardwareData, setHardwareData }) {
     )
 }
 
-export default HardwareSection
+export default HardwareEntry

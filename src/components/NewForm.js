@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 function NewForm() {
-    
+
     const [networkData, setNetworkData] = useState(
         {
             IP: '',
@@ -52,7 +52,7 @@ function NewForm() {
             Graphic: '',
             DVDDrive: '',
             PowerSupply: '',
-            PowerSettoNever: Boolean, 
+            PowerSettoNever: Boolean,
         }
     );
 
@@ -62,7 +62,7 @@ function NewForm() {
         siteContactNumber: '',
         siteNote: '',
         network: [],
-        hardware:[],
+        hardware: [],
         apps: [],
         DB: [],
         OS: [],
@@ -70,22 +70,22 @@ function NewForm() {
     const handleSubmitNewForm = (e) => {
         e.preventDefault()
 
-        setSiteData({...siteData,network:[networkData], hardware:[hardwareData], apps:[appData],  DB: [dbData], OS:[osData]})
-        if(siteData.OS[0]){ 
+        setSiteData({ ...siteData, network: [networkData], hardware: [hardwareData], apps: [appData], DB: [dbData], OS: [osData] })
+        if (siteData.OS[0]) {
             console.log(setSiteData)
-            axios.post('http://localhost:4000/api/record', siteData).then(res => { 
-            console.log(siteData)
-            if (res.data === "Record Saved Successfully") {
-                toast.info(res.data)
+            axios.post('http://localhost:4000/api/record', siteData).then(res => {
+                console.log(siteData)
+                if (res.data === "Record Saved Successfully") {
+                    toast.info(res.data)
 
-            } else {
-                toast.warning(res.data)
-            }   
-        }).catch(err => {
-            console.log(err)
-        })
+                } else {
+                    toast.warning(res.data)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
         }
-   
+
 
     }
     return (
