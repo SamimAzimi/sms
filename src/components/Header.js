@@ -38,6 +38,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
         if (options === "1" && searchQuery) {
             axios.post('https://servicemanagementsystem.herokuapp.com/api/recordName', { siteName: searchQuery }).then(res => {
                 setData(res.data)
+                 setSpinner(false)
             }).catch(err => {
                 console.log(err)
             })
@@ -45,6 +46,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
         }else {
              axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options:options, query: searchQuery }).then(res => {
                 setData(res.data)
+                 setSpinner(false)
             }).catch(err => {
                 console.log(err)
             })

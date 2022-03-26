@@ -2,7 +2,7 @@ import React from 'react'
 
 function Spinner() {
   return (
-    <div><div class="spinner-grow text-primary" role="status">
+    <div className='position-absolute top-50 start-50 translate-middle'><div class="spinner-grow text-primary" role="status">
   <span class="sr-only">Loading...</span>
 </div>
 <div class="spinner-grow text-secondary" role="status">
