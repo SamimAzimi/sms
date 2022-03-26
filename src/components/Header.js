@@ -25,13 +25,13 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
     const handleSearchClick = () => {
         setSpinner(true)
 
-        if (options === undefined || searchQuery === "") {
-            toast.info("Please Select an Option and fill the Search box", {
+        if (options === undefined) {
+            toast.info("Please Select an Option", {
                 position: toast.POSITION.TOP_LEFT
             })
             setSpinner(false)
         }
-        if (options === "0") {
+        else if (options === "0") {
             axios.get('https://servicemanagementsystem.herokuapp.com/api/allRecords').then(res => {
                 if (res.data.notfound) {
                     toast.info(res.data.notfound)
@@ -46,7 +46,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
             })
 
         }
-        if (options === "1" && searchQuery) {
+        else if (options === "1" && searchQuery) {
             axios.post('https://servicemanagementsystem.herokuapp.com/api/recordName', { siteName: searchQuery }).then(res => {
 
                 if (res.data.notfound) {
@@ -62,7 +62,8 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                 console.log(err)
             })
 
-        } if (options === "2" && searchQuery) {
+        }
+        else if (options === "2" && searchQuery) {
             if (typeof (options) !== "string") {
                 axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options: options, query: searchQuery }).then(res => {
 
@@ -82,8 +83,9 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                 setSpinner(false)
             }
 
+
         }
-        else {
+        else if (options > 2 && searchQuery) {
 
             axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options: options, query: searchQuery }).then(res => {
 
@@ -98,10 +100,10 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
             }).catch(err => {
                 console.log(err)
             })
-
-
+        } else {
+            toast.info("Please fill the Search Box")
+            setSpinner(false)
         }
-
     }
     const handleSearch = () => {
 
