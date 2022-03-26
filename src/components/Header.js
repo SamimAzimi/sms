@@ -21,10 +21,11 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
     } 
     const handleSearchClick = () => {
         setSpinner(true)
-        if (options === undefined) {
-            toast.info("Please Select an Option", {
+        if (options === undefined || searchQuery ==="") {
+            toast.info("Please Select an Option and fill the Search box", {
                 position: toast.POSITION.TOP_LEFT
             })
+            setSpinner(false)
         }
         if (options === "0") {
             axios.get('https://servicemanagementsystem.herokuapp.com/api/allRecords').then(res => {
