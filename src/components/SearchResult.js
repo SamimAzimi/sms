@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Accordion, } from 'react-bootstrap'
-import axios from 'axios'
+import Spinner from './Spinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBuilding, faStickyNote, } from '@fortawesome/free-regular-svg-icons';
+import { faStickyNote, } from '@fortawesome/free-regular-svg-icons';
 import {
     faMapLocation,
     faPhone,
@@ -18,12 +18,13 @@ import {
     faKey, faCheckCircle, faMinusCircle,
  
 } from '@fortawesome/free-solid-svg-icons';
-function SearchResult({data}) {
+function SearchResult({data , spinner}) {
     
 
 
   return (
     <>
+    {spinner ? <Spinner/> : 
     <Accordion defaultActiveKey="0">
         {data && data.map((data, i)=>{
             return (
@@ -258,6 +259,7 @@ function SearchResult({data}) {
             )
         })}
   </Accordion>
+  }
     </>
   )
 }

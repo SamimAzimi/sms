@@ -98,7 +98,7 @@ function NewForm() {
                 <DBSection dbData={dbData} setDBdata={setDBdata} />
                 <OSSection osData={osData} setOSdata={setOSdata} />
                 <button type="submit" class="btn btn-primary w-50 btn-outline-info btn-primary btn-lg">Save</button>
-                <button type="cancel" class="btn btn-secondary w-50 btn-outline-info btn-primary btn-lg">Cancel</button>
+                <button type='cancel' class="btn btn-secondary w-50 btn-outline-info btn-primary btn-lg">Cancel</button>
             </form>
             <ToastContainer />
         </>

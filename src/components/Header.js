@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
-function Header({ toggle, setToggle, toggleMenu, setToggleMenue, data, setData }) {
+function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setData }) {
     const [searchQuery, setSearchQuery] = useState()
     const [options, setOptions] = useState();
    
@@ -20,6 +20,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, data, setData }
         }
     } 
     const handleSearchClick = () => {
+        setSpinner(true)
         if (options === undefined) {
             toast.info("Please Select an Option", {
                 position: toast.POSITION.TOP_LEFT
@@ -28,6 +29,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, data, setData }
         if (options === "0") {
             axios.get('https://servicemanagementsystem.herokuapp.com/api/allRecords').then(res => {
                 setData(res.data)
+                setSpinner(false)
             }).catch(err => {
                 console.log(err)
             })
@@ -47,7 +49,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, data, setData }
                 console.log(err)
             })
         }
-
+        
     }
     const handleSearch = () => {
 
