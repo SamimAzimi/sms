@@ -34,13 +34,20 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, data, setData }
 
         }
         if (options === "1" && searchQuery) {
-            axios.post('http://localhost:4000/api/recordName', { siteName: searchQuery }).then(res => {
-                console.log(res.data)
+            axios.post('https://servicemanagementsystem.herokuapp.com/api/recordName', { siteName: searchQuery }).then(res => {
+                setData(res.data)
             }).catch(err => {
                 console.log(err)
             })
 
+        }else {
+             axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options:options, query: searchQuery }).then(res => {
+                setData(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
         }
+
     }
     const handleSearch = () => {
 
@@ -64,11 +71,9 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, data, setData }
                                 <option value="1">Site Name</option>
                                 <option value="2">Site Contact</option>
                                 <option value="3">Hardware Model</option>
-                                <option value="3">Hardware Serial Number</option>
-                                <option value="3">Apps Name</option>
-                                <option value="3">Apps Version</option>
-                                <option value="3">Last Record</option>
-                                <option value="3">First Record</option>
+                                <option value="4">Hardware Serial Number</option>
+                                <option value="5">Apps Name</option>
+                                <option value="6">Apps Version</option>
                             </select>
                         </span>
                         <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
