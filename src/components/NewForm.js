@@ -73,7 +73,7 @@ function NewForm() {
         setSiteData({ ...siteData, network: [networkData], hardware: [hardwareData], apps: [appData], DB: [dbData], OS: [osData] })
         if (siteData.OS[0]) {
             console.log(setSiteData)
-            axios.post('http://localhost:4000/api/record', siteData).then(res => {
+            axios.post('https://servicemanagementsystem.herokuapp.com/api/record', siteData).then(res => {
                 console.log(siteData)
                 if (res.data === "Record Saved Successfully") {
                     toast.info(res.data)

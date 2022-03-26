@@ -13,14 +13,18 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
 
     const handleNewClick = () => {
         if (toggle) {
+            setData('')
             setToggle(false)
         }
         if (!toggleMenu) {
+            setData('')
             setToggleMenue(true)
         }
     }
+
     const handleSearchClick = () => {
         setSpinner(true)
+
         if (options === undefined || searchQuery === "") {
             toast.info("Please Select an Option and fill the Search box", {
                 position: toast.POSITION.TOP_LEFT
@@ -58,9 +62,8 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                 console.log(err)
             })
 
-        } else {
-            const validating = validate(searchQuery, options)
-            if (validating) {
+        } if (options === "2" && searchQuery) {
+            if (typeof (options) !== "string") {
                 axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options: options, query: searchQuery }).then(res => {
 
                     if (res.data.notfound) {
@@ -75,9 +78,27 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                     console.log(err)
                 })
             } else {
-                toast.info('Please Enter Number While Selecting This Option')
+                toast.info("Please Enter A Numerical Value in Search Box")
                 setSpinner(false)
             }
+
+        }
+        else {
+
+            axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options: options, query: searchQuery }).then(res => {
+
+                if (res.data.notfound) {
+                    toast.info(res.data.notfound)
+                }
+                else {
+
+                    setData(res.data)
+                }
+                setSpinner(false)
+            }).catch(err => {
+                console.log(err)
+            })
+
 
         }
 
@@ -90,19 +111,22 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
         }
     }
 
-
+    const handleOptionChange = (e) => {
+        setOptions(e)
+        setData('')
+    }
 
 
     return (
         <>
             <div class="input-group flex-nowrap p-3">
                 <span onClick={handleSearch} class="input-group-text" id="addon-wrapping">
-                    <button type="button" class="btn btn-primary">{toggle ? "Close Search" : "Search"}</button>
+                    <button type="button" class="btn btn-primary" onClick={() => setData('')}>{toggle ? "Close Search" : "Search"}</button>
                 </span>
                 {toggle &&
                     <>
                         <span class="input-group-text" id="addon-wrapping">
-                            <select value={options} onChangeCapture={e => setOptions(e.target.value)} class="form-select" aria-label="Default search query selction">
+                            <select value={options} onChangeCapture={e => handleOptionChange(e.target.value)} class="form-select" aria-label="Default search query selction">
                                 <option value="">select an option</option>
                                 <option value="0">TOP 100 Records</option>
                                 <option value="1">Site Name</option>
@@ -128,14 +152,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
 }
 
 
-function validate(searchQuery, options) {
-    if (typeof (searchQuery) === 'string' && options !== 2) {
-        return true;
-    }
-    else {
-        return false
-    }
-}
+
 
 
 export default Header
