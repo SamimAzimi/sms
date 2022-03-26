@@ -13,7 +13,7 @@ function SiteSection({ siteData, setSiteData }) {
             <div class="input-group flex-nowrap w-50 p-3">
                 <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faBuilding} /></span>
                 <input type="text" tabIndex='1' class="form-control" placeholder="Site Name"
-                    aria-label="sitename" onChange={(e) => setSiteData({ ...siteData, sitename: e.target.value })} value={siteData.sitename} aria-describedby="addon-wrapping" required />
+                    aria-label="sitename" onChange={(e) => setSiteData({ ...siteData, siteName: e.target.value })} value={siteData.sitename} aria-describedby="addon-wrapping" required />
             </div>
             <div class="input-group flex-nowrap w-50 p-3">
                 <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faMapLocation} /></span>

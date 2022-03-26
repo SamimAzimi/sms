@@ -6,12 +6,11 @@ import DBSection from './Sections/DBSection'
 import OSSection from './Sections/OSsection'
 import Appsection from './Sections/AppSection'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 function NewForm() {
-    let location = useLocation();
+    
     const [networkData, setNetworkData] = useState(
         {
             IP: '',
@@ -53,35 +52,40 @@ function NewForm() {
             Graphic: '',
             DVDDrive: '',
             PowerSupply: '',
-            PowerSettoNever: Boolean,
+            PowerSettoNever: Boolean, 
         }
     );
 
     const [siteData, setSiteData] = useState({
-        sitename: '',
+        siteName: '',
         siteAddress: '',
         siteContactNumber: '',
         siteNote: '',
-        network: networkData,
-        hardware: hardwareData,
-        apps: appData,
-        DB: dbData,
+        network: [],
+        hardware:[],
+        apps: [],
+        DB: [],
+        OS: [],
     })
     const handleSubmitNewForm = (e) => {
         e.preventDefault()
-        axios.post('https://servicemanagementsystem.herokuapp.com/api/record', siteData).then(res => {
-            console.log(res.data)
+
+        setSiteData({...siteData,network:[networkData], hardware:[hardwareData], apps:[appData],  DB: [dbData], OS:[osData]})
+        if(siteData.OS[0]){ 
+            console.log(setSiteData)
+            axios.post('http://localhost:4000/api/record', siteData).then(res => { 
+            console.log(siteData)
             if (res.data === "Record Saved Successfully") {
                 toast.info(res.data)
 
-                window.location.reload(false)
-
             } else {
                 toast.warning(res.data)
-            }
+            }   
         }).catch(err => {
             console.log(err)
         })
+        }
+   
 
     }
     return (

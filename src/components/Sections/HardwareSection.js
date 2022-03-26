@@ -19,7 +19,7 @@ function HardwareSection({ hardwareData, setHardwareData }) {
                     <input type="text" class="form-control"
                         placeholder="Make Model"
                         aria-label="makemodel"
-                        value={hardwareData.MakeModel}
+                        value={hardwareData.MakeModel} 
                         onChange={e => setHardwareData({ ...hardwareData, MakeModel: e.target.value })}
                         aria-describedby="addon-wrapping" required />
                 </div>

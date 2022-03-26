@@ -9,7 +9,7 @@ function DBSection({ dbData, setDBdata }) {
     return (
         <>
             <h1>Database Section</h1>
-            <div className="d-flex " >
+            <div className="d-flex" >
                 <div class="input-group flex-nowrap p-3">
                     <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faDatabase} /></span>
                     <input type="text"
