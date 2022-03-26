@@ -15,8 +15,9 @@ import {
     faCompactDisc, faPlugCircleMinus, faPlug, faPlugCirclePlus,
       faCodeBranch, faLaptopCode,
     faUser, faDatabase,
-    faKey, faCheckCircle, faMinusCircle,
- 
+    faKey, faCheckCircle, 
+ faDesktop,
+    faDownload, faMinusCircle,
 } from '@fortawesome/free-solid-svg-icons';
 function SearchResult({data , spinner}) {
     
@@ -254,6 +255,53 @@ function SearchResult({data , spinner}) {
                                     </div>
                                      )
                                  })}
+                                  <h1>OS Section</h1> 
+                                  {data.OS.map(sys=>{
+                                      return (
+                                           <div class="d-flex ">
+                                            <div class="input-group flex-nowrap  p-3">
+                                                <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faDesktop} /></span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    value={sys.OSname}
+                                                />
+                                            </div>
+                                            <div class="input-group flex-nowrap w-50 p-3">
+                                                <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faCodeBranch} /></span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                
+                                                    value={sys.OSVersion}
+                                                    />
+                                            </div>
+                                            <div class="input-group flex-nowrap w-50 p-3">
+                                                <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faDownload} /></span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    value={sys.UpdateInstalled}
+                                                    />
+                                            </div>
+                                            <div class="input-group flex-nowrap w-50 p-3">
+
+                                                <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={sys.UpdateTurnedOff === true ? faCheckCircle : faMinusCircle} />
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Update Turn {sys.UpdateTurnedOff === true ? "ON" : "OFF"}
+                                                    </label>
+                                                </span>
+                                                <span class="input-group-text" id="addon-wrapping">
+
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input"
+                                                            value={sys.UpdateTurnedOff}
+                               />
+
+                        </div>
+                    </span>
+
+                </div>
+            </div>
+                                      )
+                                  })}
                     </Accordion.Body>
                     </Accordion.Item>
             )
