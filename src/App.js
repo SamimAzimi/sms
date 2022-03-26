@@ -7,6 +7,7 @@ import SearchResult from './components/SearchResult'
 function App() {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [toggleMenu, setToggleMenue] = useState(false)
+   const [data,setData] = useState(); 
   const handlebodyClick = () => {
     if (toggleSearch) {
       setToggleSearch(false)
@@ -14,9 +15,9 @@ function App() {
   }
   return (
     <>
-      <Header toggle={toggleSearch} setToggle={setToggleSearch} setToggleMenue={setToggleMenue} toggleMenu={toggleMenu} />
+      <Header toggle={toggleSearch} data={data} setData={setData} setToggle={setToggleSearch} setToggleMenue={setToggleMenue} toggleMenu={toggleMenu} />
       <div onClick={handlebodyClick}>
-        {toggleMenu ? <NewForm /> : <SearchResult />}
+        {toggleMenu ? <NewForm /> : <SearchResult  data={data} setData={setData} />}
 
       </div>
 

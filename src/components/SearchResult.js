@@ -18,21 +18,12 @@ import {
     faKey, faCheckCircle, faMinusCircle,
  
 } from '@fortawesome/free-solid-svg-icons';
-function SearchResult() {
-    const [data,setData] = useState();
-    const handleSearchClick = () => {
-     
-            axios.get('https://servicemanagementsystem.herokuapp.com/api/allRecords').then(res => {
-                console.log(res.data)
-                setData(res.data)
-            }).catch(err => {
-                console.log(err)
-            })
-    }
+function SearchResult({data}) {
+    
+
 
   return (
     <>
-    <div onClick={handleSearchClick}>Create New or Search Old Records</div>
     <Accordion defaultActiveKey="0">
         {data && data.map((data, i)=>{
             return (
