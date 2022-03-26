@@ -29,8 +29,14 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
         }
         if (options === "0") {
             axios.get('https://servicemanagementsystem.herokuapp.com/api/allRecords').then(res => {
-                setData(res.data)
-                setSpinner(false)
+                  if(res.data.notfound){
+                    toast.info(res.data.notfound)
+                }
+                else {
+
+                    setData(res.data)
+                }
+                 setSpinner(false)
             }).catch(err => {
                 console.log(err)
             })
@@ -38,7 +44,15 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
         }
         if (options === "1" && searchQuery) {
             axios.post('https://servicemanagementsystem.herokuapp.com/api/recordName', { siteName: searchQuery }).then(res => {
-                setData(res.data)
+               
+                 if(res.data.notfound){
+
+                    toast.info(res.data.notfound)
+                }
+                else {
+
+                    setData(res.data)
+                }
                  setSpinner(false)
             }).catch(err => {
                 console.log(err)
@@ -46,7 +60,14 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
 
         }else {
              axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options:options, query: searchQuery }).then(res => {
-                setData(res.data)
+                
+                if(res.data.notfound){
+                    toast.info(res.data.notfound)
+                }
+                else {
+
+                    setData(res.data)
+                }
                  setSpinner(false)
             }).catch(err => {
                 console.log(err)
@@ -81,7 +102,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
                                 <option value="6">Apps Version</option>
                             </select>
                         </span>
-                        <input type="text" value={searchQuery} disabled={options==1 ? false : true} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
+                        <input type="text" value={searchQuery} disabled={options==0 ? true : false} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
                         <span class="input-group-text" > <button type="button" onClick={handleSearchClick} class="btn btn-primary btn-outline-danger"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
                     </>
                 }
