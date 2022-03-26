@@ -81,7 +81,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue,setSpinner, setD
                                 <option value="6">Apps Version</option>
                             </select>
                         </span>
-                        <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
+                        <input type="text" value={searchQuery} disabled={options==1 ? false : true} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
                         <span class="input-group-text" > <button type="button" onClick={handleSearchClick} class="btn btn-primary btn-outline-danger"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
                     </>
                 }
