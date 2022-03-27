@@ -15,7 +15,7 @@ function Footer() {
                 </div>
                 <div className='groupfooter'>
                 <p className='footerHeadings'>Contact US</p>
-                <p>+93702109223</p>
+                <p>+16478091193</p>
                 </div>
             </div>
              <div  className='PoweredBY'>
