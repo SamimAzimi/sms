@@ -1,9 +1,17 @@
 .container {
-    padding: 23px;
-
+  padding: 23px;
 }
 
 h1 {
-    font-size: small;
-    color: blue;
+  font-size: large;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: darkblue;
+}
+
+.nameFonts {
+  color: white;
+}
+.accordion-item {
+  border-color: gray;
 }

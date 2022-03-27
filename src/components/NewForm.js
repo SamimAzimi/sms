@@ -84,8 +84,15 @@ function NewForm() {
             }).catch(err => {
                 console.log(err)
             })
+        }else {
+            toast.info("Click Save Button Twice for Confirmation")
         }
 
+
+    }
+
+    const handleCancle =()=>{
+        setSiteData('')
 
     }
     return (
@@ -97,8 +104,7 @@ function NewForm() {
                 <Appsection appData={appData} setAppData={setAppData} />
                 <DBSection dbData={dbData} setDBdata={setDBdata} />
                 <OSSection osData={osData} setOSdata={setOSdata} />
-                <button type="submit" class="btn btn-primary w-50 btn-outline-info btn-primary btn-lg">Save</button>
-                <button type='cancel' class="btn btn-secondary w-50 btn-outline-info btn-primary btn-lg">Cancel</button>
+                <button type="submit"  class="btn btn-primary w-50 btn-outline-info btn-primary btn-lg">Save</button>
             </form>
             <ToastContainer />
         </>

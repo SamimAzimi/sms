@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <Header toggle={toggleSearch} setSpinner={setSpinner} data={data} setData={setData} setToggle={setToggleSearch} setToggleMenue={setToggleMenue} toggleMenu={toggleMenu} />
-      <div onClick={handlebodyClick}>
+      <div className='container' onClick={handlebodyClick}>
         {toggleMenu ? <NewForm /> : <SearchResult spinner={spinner}  data={data} setData={setData} />}
 
       </div>

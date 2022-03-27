@@ -5,7 +5,9 @@ import {
 
 } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
+import '../styles/common.css'
 import axios from 'axios';
+import { Nav, Navbar, Container, Form, Button, FormControl, NavDropdown } from 'react-bootstrap';
 function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, setData }) {
     const [searchQuery, setSearchQuery] = useState()
     const [options, setOptions] = useState();
@@ -121,13 +123,21 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
 
     return (
         <>
-            <div class="input-group flex-nowrap p-3">
+        <Navbar bg="dark" expand="lg">
+            <Container fluid>
+                <Navbar.Brand ><h1 className='nameFonts'>Site Managment</h1></Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Collapse id="navbarScroll">
+                <div class="input-group ">
+                <span class="input-group-text" id="addon-wrapping">
+                    <button onClick={handleNewClick} type="button" class="btn btn-primary">New</button>
+                </span>
                 <span onClick={handleSearch} class="input-group-text" id="addon-wrapping">
                     <button type="button" class="btn btn-primary" onClick={() => setData('')}>{toggle ? "Close Search" : "Search"}</button>
                 </span>
                 {toggle &&
                     <>
-                        <span class="input-group-text" id="addon-wrapping">
+                        <span class="input-group-text" >
                             <select value={options} onChangeCapture={e => handleOptionChange(e.target.value)} class="form-select" aria-label="Default search query selction">
                                 <option value="">select an option</option>
                                 <option value="0">TOP 100 Records</option>
@@ -143,10 +153,11 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                         <span class="input-group-text" > <button type="button" onClick={handleSearchClick} class="btn btn-primary btn-outline-danger"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
                     </>
                 }
-                <span class="input-group-text" id="addon-wrapping">
-                    <button onClick={handleNewClick} type="button" class="btn btn-primary">New</button>
-                </span>
             </div>
+                </Navbar.Collapse>
+            </Container>
+            </Navbar>
+        
             <ToastContainer />
         </>
 

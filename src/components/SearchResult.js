@@ -4,6 +4,7 @@ import Spinner from './Spinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStickyNote, } from '@fortawesome/free-regular-svg-icons';
 import ModalDataEntery from './ModalDataEntery'
+import '../styles/common.css' 
 import {
     faMapLocation,
     faPhone,
@@ -35,11 +36,11 @@ function SearchResult({ data, spinner }) {
     return (
         <>
             {spinner ? <Spinner /> :
-                <Accordion defaultActiveKey="0">
+                <Accordion defaultActiveKey="0" >
                     {data && data.map((data, i) => {
                         return (
-                            <Accordion.Item eventKey={i} key={data._id}>
-                                <Accordion.Header >{data.siteName}</Accordion.Header>
+                            <Accordion.Item  variant="primary" eventKey={i} key={data._id}>
+                                <Accordion.Header variant="primary" >{data.siteName}</Accordion.Header>
                                 <Accordion.Body key={i}>
                                     <div class="d-flex" key={data._id}>
                                         <div class="input-group flex-nowrap w-50 p-3">
@@ -59,6 +60,7 @@ function SearchResult({ data, spinner }) {
                                         </div>
 
                                     </div>
+                                    <hr />
                                     <h1>Network Section</h1>
                                     {data.network.map((net) => {
                                         return (
@@ -85,6 +87,7 @@ function SearchResult({ data, spinner }) {
                                             </>
                                         )
                                     })}
+                                     <hr />
                                     <h1>Hardware Section</h1>
                                     <Button variant="primary" onClick={() => handleModalButton([data._id, "Hardware"])}>
                                         ADD Hardware
@@ -180,6 +183,7 @@ function SearchResult({ data, spinner }) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                 <hr />
                                             </>
                                         )
                                     })}
