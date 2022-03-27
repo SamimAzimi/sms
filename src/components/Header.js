@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faMagnifyingGlass,
@@ -119,6 +119,19 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
         setOptions(e)
         setData('')
     }
+ useEffect(() => {
+    const listener = event => {
+      if (event.code === "Enter" ) {
+        console.log("Enter key was pressed. Run your function.");
+        event.preventDefault();
+         handleSearchClick();
+      }
+    };
+    document.addEventListener("Enter", listener);
+    return () => {
+      document.removeEventListener("Enter", listener);
+    };
+  }, []);
 
 
     return (
@@ -130,15 +143,15 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                 <Navbar.Collapse id="navbarScroll">
                 <div class="input-group ">
                 <span class="input-group-text" id="addon-wrapping">
-                    <button onClick={handleNewClick} type="button" class="btn btn-primary">New</button>
+                    <button onClick={handleNewClick} tabIndex="1" type="button" class="btn btn-primary">New</button>
                 </span>
                 <span onClick={handleSearch} class="input-group-text" id="addon-wrapping">
-                    <button type="button" class="btn btn-primary" onClick={() => setData('')}>{toggle ? "Close Search" : "Search"}</button>
+                    <button type="button" tabIndex="2" class="btn btn-primary" onClick={() => setData('')}>{toggle ? "Close Search" : "Search"}</button>
                 </span>
                 {toggle &&
                     <>
                         <span class="input-group-text" >
-                            <select value={options} onChangeCapture={e => handleOptionChange(e.target.value)} class="form-select" aria-label="Default search query selction">
+                            <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} class="form-select" aria-label="Default search query selction">
                                 <option value="">select an option</option>
                                 <option value="0">TOP 100 Records</option>
                                 <option value="1">Site Name</option>
@@ -150,7 +163,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                             </select>
                         </span>
                         <input type="text" value={searchQuery} disabled={options === 0 ? true : false} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
-                        <span class="input-group-text" > <button type="button" onClick={handleSearchClick} class="btn btn-primary btn-outline-danger"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
+                        <span class="input-group-text" > <button type="button"  onClick={handleSearchClick} class="btn btn-primary btn-outline-danger"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
                     </>
                 }
             </div>
