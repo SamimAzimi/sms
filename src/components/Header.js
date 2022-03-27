@@ -136,7 +136,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
 
     return (
         <>
-        <Navbar bg="dark" expand="lg">
+        <Navbar bg="primary" expand="lg">
             <Container fluid>
                 <Navbar.Brand ><h1 className='nameFonts'>Site Managment</h1></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
@@ -163,7 +163,7 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                             </select>
                         </span>
                         <input type="text" value={searchQuery} disabled={options === 0 ? true : false} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
-                        <span class="input-group-text" > <button type="button"  onClick={handleSearchClick} class="btn btn-primary btn-outline-danger"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
+                        <span class="input-group-text" > <button type="button"  onClick={handleSearchClick} class="btn btn-primary"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
                     </>
                 }
             </div>

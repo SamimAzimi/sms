@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './styles/common.css'
 import Header from './components/Header'
 import NewForm from './components/NewForm'
+import Footer from './components/Footer'
 import SearchResult from './components/SearchResult'
 
 function App() {
@@ -19,11 +20,11 @@ function App() {
   return (
     <>
       <Header toggle={toggleSearch} setSpinner={setSpinner} data={data} setData={setData} setToggle={setToggleSearch} setToggleMenue={setToggleMenue} toggleMenu={toggleMenu} />
-      <div className='container' onClick={handlebodyClick}>
+      <div className='container cheight' onClick={handlebodyClick}>
         {toggleMenu ? <NewForm /> : <SearchResult spinner={spinner}  data={data} setData={setData} />}
 
       </div>
-
+      <Footer />
     </>
   );
 }
