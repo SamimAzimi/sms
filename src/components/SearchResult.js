@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Accordion, Button } from 'react-bootstrap'
 import Spinner from './Spinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStickyNote, } from '@fortawesome/free-regular-svg-icons';
+import { DataContext } from './Context'
 import ModalDataEntery from './ModalDataEntery'
-import '../styles/common.css' 
+import '../styles/common.css'
 import {
     faMapLocation,
     faPhone,
@@ -21,12 +22,18 @@ import {
     faDesktop,
     faDownload, faMinusCircle,
 } from '@fortawesome/free-solid-svg-icons';
-function SearchResult({ data, spinner }) {
+function SearchResult() {
+    const ctx = useContext(DataContext)
+    const { data, spinner } = ctx
 
     const [recordInfo, setrecordInfo] = useState({});
 
     const [show, setShow] = useState(false);
 
+    useEffect(() => {
+        console.log('search result', ctx)
+
+    }, [])
     const handleModalButton = (params) => {
         setrecordInfo({ id: params[0], sectionName: params[1] })
         console.log(params)
@@ -36,10 +43,10 @@ function SearchResult({ data, spinner }) {
     return (
         <>
             {spinner ? <Spinner /> :
-                <Accordion defaultActiveKey="0" >
+                <Accordion defaultActiveKey="0" className="container p-5">
                     {data && data.map((data, i) => {
                         return (
-                            <Accordion.Item  variant="primary" eventKey={i} key={data._id}>
+                            <Accordion.Item variant="primary" eventKey={i} key={data._id}>
                                 <Accordion.Header variant="primary" >{data.siteName}</Accordion.Header>
                                 <Accordion.Body key={i}>
                                     <div class="d-flex" key={data._id}>
@@ -87,7 +94,7 @@ function SearchResult({ data, spinner }) {
                                             </>
                                         )
                                     })}
-                                     <hr />
+                                    <hr />
                                     <h1>Hardware Section</h1>
                                     <Button variant="primary" onClick={() => handleModalButton([data._id, "Hardware"])}>
                                         ADD Hardware
@@ -183,7 +190,7 @@ function SearchResult({ data, spinner }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 <hr />
+                                                <hr />
                                             </>
                                         )
                                     })}

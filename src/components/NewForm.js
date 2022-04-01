@@ -8,6 +8,7 @@ import Appsection from './Sections/AppSection'
 import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router'
 
 function NewForm() {
 
@@ -46,7 +47,6 @@ function NewForm() {
             MakeModel: '',
             ServiceTagSerialNo: '',
             CPU: '',
-            CPUQt: Number,
             RAM: Number,
             HDD: Number,
             Graphic: '',
@@ -84,27 +84,28 @@ function NewForm() {
             }).catch(err => {
                 console.log(err)
             })
-        }else {
+        } else {
             toast.info("Click Save Button Twice for Confirmation")
         }
 
 
     }
-
-    const handleCancle =()=>{
-        setSiteData('')
+    let navigation = useNavigate();
+    const handleCancle = () => {
+        navigation('/')
 
     }
     return (
         <>
-            <form className="container" onSubmit={handleSubmitNewForm}>
+            <form className="container p-4" onSubmit={handleSubmitNewForm}>
                 <SiteSection siteData={siteData} setSiteData={setSiteData} />
                 <NetworkSection networkData={networkData} setNetworkData={setNetworkData} />
                 <HardwareSection hardwareData={hardwareData} setHardwareData={setHardwareData} />
                 <Appsection appData={appData} setAppData={setAppData} />
                 <DBSection dbData={dbData} setDBdata={setDBdata} />
                 <OSSection osData={osData} setOSdata={setOSdata} />
-                <button type="submit"  class="btn btn-primary w-50 btn-outline-info btn-primary btn-lg">Save</button>
+                <button type="submit" class="btn btn-primary w-50 btn-outline-info btn-primary btn-lg">Save</button>
+                <button type="cancel" onClick={handleCancle} class="btn btn-primary w-50 btn-outline-info btn-primary btn-lg">Cancel</button>
             </form>
             <ToastContainer />
         </>

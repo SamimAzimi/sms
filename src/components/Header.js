@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faMagnifyingGlass,
@@ -7,29 +8,44 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 import '../styles/common.css'
 import axios from 'axios';
-import { Nav, Navbar, Container, Form, Button, FormControl, NavDropdown } from 'react-bootstrap';
-function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, setData }) {
+import { DataContext } from './Context'
+import { Navbar, Container, Form, Button, FormControl, NavDropdown } from 'react-bootstrap';
+function Header() {
+    const value = useContext(DataContext)
+    const { toggleSearch, setToggleSearch, spinner, setSpinner, toggleMenu, setToggleMenue, data, setData } = value
+
+    const [toggle, setToggle] = useState()
+
     const [searchQuery, setSearchQuery] = useState()
     const [options, setOptions] = useState();
 
-
+    let navigation = useNavigate();
     const handleNewClick = () => {
-        if (toggle) {
-            setData('')
-            setToggle(false)
-        }
-        if (!toggleMenu) {
-            setData('')
-            setToggleMenue(true)
-        }
+        navigation('/newform')
     }
 
     const handleSearchClick = () => {
         setSpinner(true)
 
         if (options === undefined) {
-            toast.info("Please Select an Option", {
-                position: toast.POSITION.TOP_LEFT
+            axios.post('http://localhost:4000/api/siteName ', { siteName: searchQuery }).then(res => {
+
+                if (res.data.notfound) {
+
+                    toast.info(res.data.notfound)
+                    setData('')
+                }
+                else if (res.data.found) {
+
+                    setData(res.data.found)
+                    navigation('/oneSite')
+                } else if (res.data.foundError) {
+                    setData('')
+                    toast.error('error')
+                }
+                setSpinner(false)
+            }).catch(err => {
+                console.log(err)
             })
             setSpinner(false)
         }
@@ -39,8 +55,14 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
                     toast.info(res.data.notfound)
                 }
                 else {
-
+                    console.log(res.data)
                     setData(res.data)
+                    console.log('data in header', data)
+
+                    setTimeout(() => {
+                        navigation('/searchResult')
+                    }, 10000)
+
                 }
                 setSpinner(false)
             }).catch(err => {
@@ -119,58 +141,50 @@ function Header({ toggle, setToggle, toggleMenu, setToggleMenue, setSpinner, set
         setOptions(e)
         setData('')
     }
- useEffect(() => {
-    const listener = event => {
-      if (event.code === "Enter" ) {
-        console.log("Enter key was pressed. Run your function.");
-        event.preventDefault();
-         handleSearchClick();
-      }
-    };
-    document.addEventListener("Enter", listener);
-    return () => {
-      document.removeEventListener("Enter", listener);
-    };
-  }, []);
+
 
 
     return (
         <>
-        <Navbar bg="primary" expand="lg">
-            <Container fluid>
-                <Navbar.Brand ><h1 className='nameFonts'>Site Managment</h1></Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                <div class="input-group ">
-                <span class="input-group-text" id="addon-wrapping">
-                    <button onClick={handleNewClick} tabIndex="1" type="button" class="btn btn-primary">New</button>
-                </span>
-                <span onClick={handleSearch} class="input-group-text" id="addon-wrapping">
-                    <button type="button" tabIndex="2" class="btn btn-primary" onClick={() => setData('')}>{toggle ? "Close Search" : "Search"}</button>
-                </span>
-                {toggle &&
-                    <>
-                        <span class="input-group-text" >
-                            <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} class="form-select" aria-label="Default search query selction">
-                                <option value="">select an option</option>
-                                <option value="0">TOP 100 Records</option>
-                                <option value="1">Site Name</option>
-                                <option value="2">Site Contact</option>
-                                <option value="3">Hardware Model</option>
-                                <option value="4">Hardware Serial Number</option>
-                                <option value="5">Apps Name</option>
-                                <option value="6">Apps Version</option>
-                            </select>
-                        </span>
-                        <input type="text" value={searchQuery} disabled={options === 0 ? true : false} onChange={e => setSearchQuery(e.target.value)} class="form-control" placeholder="Enter The Search Query" aria-label="Username" aria-describedby="addon-wrapping" />
-                        <span class="input-group-text" > <button type="button"  onClick={handleSearchClick} class="btn btn-primary"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
-                    </>
-                }
-            </div>
-                </Navbar.Collapse>
-            </Container>
+            <Navbar bg="primary" expand="lg">
+                <Container fluid>
+                    <Navbar.Brand ><h1 className='nameFonts'>Site Managment</h1></Navbar.Brand>
+                    <Navbar.Toggle aria-controls="navbarScroll" />
+                    <Navbar.Collapse id="navbarScroll">
+                        <div className="input-group ">
+                            <span className="input-group-text" id="addon-wrapping">
+                                <button onClick={handleNewClick} tabIndex="1" type="button" className="btn btn-primary">New</button>
+                            </span>
+                            <span onClick={handleSearch} className="input-group-text" id="addon-wrapping">
+                                <button type="button" tabIndex="2" className="btn btn-primary" onClick={() => setData('')}>{toggle ? "Close Advance Search" : "Advance Search"}</button>
+                            </span>
+                            {toggle &&
+                                <>
+                                    <span className="input-group-text" >
+                                        <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} className="form-select" aria-label="Default search query selction">
+                                            <option value="">select an option</option>
+                                            <option value="0">TOP 100 Records</option>
+                                            <option value="1">Site Name</option>
+                                            <option value="2">Site Contact</option>
+                                            <option value="3">Hardware Model</option>
+                                            <option value="4">Hardware Serial Number</option>
+                                            <option value="5">Apps Name</option>
+                                            <option value="6">Apps Version</option>
+                                        </select>
+                                    </span>
+                                </>
+                            }
+                            <input type="text" value={searchQuery || ''}
+                                onChange={e => setSearchQuery(e.target.value)} className="form-control"
+                                placeholder="Enter The Site Name"
+
+                            />
+                            <span className="input-group-text" > <button type="button" onClick={handleSearchClick} className="btn btn-primary"><FontAwesomeIcon icon={faMagnifyingGlass} /></button></span>
+                        </div>
+                    </Navbar.Collapse>
+                </Container>
             </Navbar>
-        
+
             <ToastContainer />
         </>
 
