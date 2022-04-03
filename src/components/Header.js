@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -9,10 +9,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import '../styles/common.css'
 import axios from 'axios';
 import { DataContext } from './Context'
-import { Navbar, Container, Form, Button, FormControl, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, } from 'react-bootstrap';
 function Header() {
     const value = useContext(DataContext)
-    const { toggleSearch, setToggleSearch, spinner, setSpinner, toggleMenu, setToggleMenue, data, setData } = value
+    const { setSpinner, toggleMenu, setToggleMenue, data, setSearchData, setData } = value
 
     const [toggle, setToggle] = useState()
 
@@ -27,7 +27,7 @@ function Header() {
     const handleSearchClick = () => {
         setSpinner(true)
 
-        if (options === undefined) {
+        if (options === undefined || options === "") {
             axios.post('http://localhost:4000/api/siteName ', { siteName: searchQuery }).then(res => {
 
                 if (res.data.notfound) {
@@ -55,10 +55,7 @@ function Header() {
                     toast.info(res.data.notfound)
                 }
                 else {
-                    console.log(res.data)
-                    setData(res.data)
-                    console.log('data in header', data)
-
+                    setSearchData(res.data)
                     setTimeout(() => {
                         navigation('/searchResult')
                     }, 10000)
@@ -163,13 +160,13 @@ function Header() {
                                     <span className="input-group-text" >
                                         <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} className="form-select" aria-label="Default search query selction">
                                             <option value="">select an option</option>
-                                            <option value="0">TOP 100 Records</option>
-                                            <option value="1">Site Name</option>
+                                            <option value="0">All Records</option>
+                                            {/* <option value="1">Site Name</option>
                                             <option value="2">Site Contact</option>
                                             <option value="3">Hardware Model</option>
                                             <option value="4">Hardware Serial Number</option>
                                             <option value="5">Apps Name</option>
-                                            <option value="6">Apps Version</option>
+                                            <option value="6">Apps Version</option> */}
                                         </select>
                                     </span>
                                 </>
