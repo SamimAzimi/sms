@@ -9,6 +9,26 @@ h1 {
   color: white;
 }
 
+.allResultList>li {
+  list-style: none;
+}
+
+.allResultList>li {
+  margin-top: 9px;
+  border: 1px solid whitesmoke;
+  text-align: center;
+  font-size: 2rem;
+  background-color: whitesmoke;
+  list-style: none;
+  transition: all 1ms;
+}
+
+.allResultList>li:hover {
+  border: 1px solid rgb(136, 133, 133);
+  background-color: rgb(136, 133, 133);
+  color: white;
+}
+
 #svg {
   position: relative;
   left: 30%;

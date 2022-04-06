@@ -41,7 +41,7 @@ function OneSite() {
             navgiation('/')
         }
 
-    }, [navgiation, data.length])
+    }, [])
 
     const columns = [
         { title: "Computer Type", field: "type", defaultGroupOrder: 0 },
@@ -151,7 +151,7 @@ function OneSite() {
 
     const downloadPDF = () => {
         axios
-            .get(`http://localhost:4000/api/pdf/${data.siteName}`, {
+            .get(`https://servicemanagementsystem.herokuapp.com/api/pdf/${data.siteName}`, {
                 responseType: 'blob',
             })
             .then(response => {
@@ -175,9 +175,6 @@ function OneSite() {
 
     }
 
-    if (data.length === 0) {
-        navgiation('/')
-    }
 
     return (
         <>

@@ -1,16 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
+import { Button } from 'react-bootstrap'
 import AppsEntry from './EntrySection/AppsEntry'
 import HardwareEntry from './EntrySection/HardwareEntry'
 import DatabaseEntry from './EntrySection/DatabaseEntry'
 import OSEntry from './EntrySection/OSEntry'
 import NetEntry from './EntrySection/NetEntry'
 import { DataContext } from './Context'
-import { Button } from 'react-bootstrap'
 import { toast, ToastContainer } from 'react-toastify'
 import axios from 'axios'
 function ModalDataEntery({ setShow, show, recordInfo }) {
-
+    const [disable, setdisabled] = useState(true)
     const value = useContext(DataContext)
     const { next, setNext, dataEntry, setDataEntry, data } = value
     const handleClose = () => setShow(false);
@@ -111,8 +111,9 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
                 toast.info('Please Fill all the fields')
 
             } else {
+                setdisabled(false)
                 setTimeout(() => {
-                    axios.post('http://localhost:4000/api/hardwaretoapp', {
+                    axios.post('https://servicemanagementsystem.herokuapp.com/api/hardwaretoapp', {
                         "recordID": data._id,
                         "data": dataEntry
                     }).then(
@@ -120,6 +121,7 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
                             toast.info(response.data)
                             setNext({ fivithNext: false, firstNext: true })
                             setShow(false)
+                            setdisabled(true)
                             setDataEntry(
                                 {
                                     location: '',
@@ -192,7 +194,7 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
                 {next.fivithNext && <DatabaseEntry />}
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="primary" onClick={handleNext}>{next.fivithNext ? "Save" : "Next"} </Button>
+                    <Button variant="primary" disabled={disable ? "" : "false"} onClick={handleNext}>{next.fivithNext ? "Save" : "Next"} </Button>
                 </Modal.Footer>
             </Modal>
 

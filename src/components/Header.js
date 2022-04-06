@@ -5,6 +5,7 @@ import {
     faMagnifyingGlass,
 
 } from '@fortawesome/free-solid-svg-icons';
+import SiteModal from './SiteModal'
 import { toast, ToastContainer } from 'react-toastify';
 import '../styles/common.css'
 import axios from 'axios';
@@ -12,23 +13,24 @@ import { DataContext } from './Context'
 import { Navbar, Container, } from 'react-bootstrap';
 function Header() {
     const value = useContext(DataContext)
-    const { setSpinner, toggleMenu, setToggleMenue, data, setSearchData, setData } = value
+    const { setSpinner, toggleMenu, setToggleMenue, setSearchData, setData } = value
 
     const [toggle, setToggle] = useState()
-
+    const [showSite, setShowSite] = useState(false);
     const [searchQuery, setSearchQuery] = useState()
     const [options, setOptions] = useState();
 
     let navigation = useNavigate();
     const handleNewClick = () => {
-        navigation('/newform')
+        setShowSite(true)
+
     }
 
     const handleSearchClick = () => {
         setSpinner(true)
 
         if (options === undefined || options === "") {
-            axios.post('http://localhost:4000/api/siteName ', { siteName: searchQuery }).then(res => {
+            axios.post('https://servicemanagementsystem.herokuapp.com/api/siteName ', { siteName: searchQuery }).then(res => {
 
                 if (res.data.notfound) {
 
@@ -181,7 +183,7 @@ function Header() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
+            <SiteModal setShowSite={setShowSite} showSite={showSite} />
             <ToastContainer />
         </>
 
