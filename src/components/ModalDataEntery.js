@@ -238,7 +238,137 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
 
 
     }
+    const handleAnoher =()=>{
+        if (next.firstNext) {
+            if (location === "" || Notes === "" || type === "" || MakeModel === "" || functions === "" || ServiceTagSerialNo === "" || CPU === "" || RAM === "" || HDD === "" || Graphic === "" || DVDDrive === "" || PowerSupply === "" || PowerSettoNever === "" || sourceFile === "" || RaidLevel === "" || additionalSoftware === "") {
+                toast.info('Please Fill all the fields')
+            } else
+            {
+                setNext({ firstNext: false, secondNext: true })
+            }
+        }
+        if (next.secondNext) {
+            if (appsName === "" || appsVersion === "" || appsUserName === "" || appsPassword === ""
+            ) {
+                toast.info('Please Fill all the fields')
 
+            } else {
+
+                setNext({ secondNext: false, thirdNext: true })
+            }
+        }
+        if (next.thirdNext) {
+            if (
+                IP === "" ||
+                subnetMask === "" ||
+                gateway === ""
+            ) {
+                toast.info('Please Fill all the fields')
+
+            } else {
+
+                setNext({ thirdNext: false, fourthNext: true })
+            }
+        }
+        if (next.fourthNext) {
+            if (
+                OSname === "" ||
+                OSVersion === "" ||
+                UserName === "" ||
+                password === "" ||
+                UpdateInstalled === "" ||
+                UpdateTurnedOff === ""
+            ) {
+                toast.info('Please Fill all the fields')
+
+            } else {
+
+                setNext({ fourthNext: false, fivithNext: true })
+            }
+        }
+        if (next.fivithNext) {
+            if (
+                DBinstalled === "" ||
+                DBname === "" ||
+                DBVersion === "" ||
+                DBsaPassword === ""
+            ) {
+                toast.info('Please Fill all the fields')
+
+            } else {
+                setdisabled(false)
+                setTimeout(() => {
+                    axios.post('https://servicemanagementsystem.herokuapp.com/api/hardwaretoapp', {
+                        "recordID": data._id,
+                        "data": dataEntry
+                    }).then(
+                        (response) => {
+                            toast.info(response.data)
+                            setNext({
+                                firstNext: true,
+                                secondNext: false,
+                                thirdNext: false,
+                                fourthNext: false,
+                                fivithNext: false,
+                            })
+                            setdisabled(true)
+                            setDataEntry(
+                                {
+                                    location: '',
+                                    Notes: '',
+                                    type: '',
+                                    MakeModel: '',
+                                    functions: '',
+                                    ServiceTagSerialNo: '',
+                                    CPU: '',
+                                    RAM: '',
+                                    HDD: '',
+                                    Graphic: '',
+                                    DVDDrive: '',
+                                    PowerSupply: '',
+                                    PowerSettoNever: Boolean,
+                                    sourceFile: '',
+                                    RaidLevel: '',
+                                    additionalSoftware: '',
+                                    apps: {
+                                        appsName: '',
+                                        appsVersion: '',
+                                        appsUserName: '',
+                                        appsPassword: '',
+                                    },
+                                    DB: {
+                                        DBinstalled: Boolean,
+                                        DBname: '',
+                                        DBVersion: '',
+                                        DBsaPassword: ''
+                                    },
+                                    OS: {
+                                        OSname: '',
+                                        OSVersion: '',
+                                        UserName: '',
+                                        password: '',
+                                        UpdateInstalled: Boolean,
+                                        UpdateTurnedOff: Boolean
+                                    },
+                                    network: {
+                                        IP: '',
+                                        subnetMask: '',
+                                        gateway: ''
+                                    }
+                                }
+                            )
+
+                        }
+                    ).catch(err => {
+                        console.log(err)
+                    });
+                }, 2000)
+                    
+
+
+            }
+        }
+    }
     const handleBack =()=>{
         const {secondNext,thirdNext,fourthNext,fivithNext}=next
 
@@ -293,8 +423,8 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
                 {next.fivithNext && <DatabaseEntry />}
                 <Modal.Footer>
                     {next.firstNext ? "": <Button variant='secondary' onClick={handleBack}>Back</Button>}
-                    
-                    <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    {next.fivithNext ? <Button disabled={disable ? "" : "false"} variant="info" onClick={handleAnoher}>Save & Enter Another</Button>: ""}
+                    <Button variant="secondary" disabled={disable ? "" : "false"} onClick={handleClose}>Close</Button>
                     <Button variant="primary" disabled={disable ? "" : "false"} onClick={handleNext}>{next.fivithNext ? "Save" : "Next"} </Button>
                 </Modal.Footer>
             </Modal>
