@@ -428,7 +428,7 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
                     <Button variant="primary" disabled={disable ? "" : "false"} onClick={handleNext}>{next.fivithNext ? "Save" : "Next"} </Button>
                 </Modal.Footer>
             </Modal>
-
+ 
             <ToastContainer />
         </>
     )

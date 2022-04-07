@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { DataContext } from './Context'
 import '../styles/common.css'
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +13,11 @@ function SearchResult() {
     }
     return (
         <> 
+            {searchData.length === 0 ?
+            <div className='nodataExist'>
+                <h1 >No Data Exist in Database </h1>
+            </div> 
+                :
             <ul className="container allResultList">
                 {searchData.map(search => {
                     return (
@@ -20,6 +25,8 @@ function SearchResult() {
                     )
                 })}
             </ul>
+            }
+        
         </>
     )
 }

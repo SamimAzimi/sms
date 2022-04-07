@@ -7,7 +7,9 @@ export const DataContextProvider = (props) => {
     const [data, setData] = useState([]);
     const [toggleSearch, setToggleSearch] = useState(false);
     const [toggleMenu, setToggleMenue] = useState(false)
-    const [spinner, setSpinner] = useState(false);
+
+    const [spinner , setSpinner]=useState(false)
+
     const [dataEntry, setDataEntry] = useState({
         location: '',
         Notes: '',

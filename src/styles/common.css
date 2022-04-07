@@ -4,11 +4,9 @@ h1 {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: darkblue;
 }
-
 .nameFonts {
   color: white;
 }
-
 .allResultList > li {
   list-style: none;
 }
@@ -29,7 +27,6 @@ h1 {
   list-style: none;
   transition: all 1ms;
 }
-
 .allResultList > li:hover {
   border: 1px solid rgb(136, 133, 133);
   background-color: rgb(136, 133, 133);
@@ -46,15 +43,12 @@ h1 {
   width: 100%;
   min-height: 85vh;
 }
-
 .mutable {
   margin-top: 23px;
 }
-
 .accordion-item {
   border-color: gray;
 }
-
 footer {
   padding-top: 12px;
   display: flex;
@@ -63,32 +57,27 @@ footer {
   color: white;
   margin-top: auto;
 }
-
 .ContactUs,
 .PoweredBY,
 .EmailUs {
   display: flex;
   flex-wrap: nowrap;
 }
-
 .footerIcons {
   text-align: center;
   font-size: 1rem;
   padding-right: 1rem;
 }
-
 .groupfooter {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
-
 .footerHeadings {
   color: white;
   font-weight: bold;
   font-size: 12px;
 }
-
 .tableInfoHeader {
   margin-top: 23px;
   display: flex;
@@ -96,24 +85,30 @@ footer {
   justify-content: space-between;
   flex-wrap: nowrap;
 }
-
 .tableinfoheader_p {
   font-size: small;
   padding-left: 8px;
 }
-
 .rowgak {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-
 .siteInfo {
   color: blue;
 }
-
 .tableInfo_sectionTwo {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+.nodataExist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+.nodataExist > h1 {
+  font-size: 2rem;
 }
