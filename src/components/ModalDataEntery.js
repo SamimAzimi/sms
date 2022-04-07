@@ -13,7 +13,7 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
 
     const [disable, setdisabled] = useState(true)
     const value = useContext(DataContext)
-    const { next, setNext, dataEntry, setDataEntry, data } = value
+    const { next, setNext, dataEntry, setDataEntry, data, } = value
 
     const handleClose = () =>{
     setNext({
@@ -230,7 +230,7 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
                         console.log(err)
                     });
                 }, 2000)
-
+                    
 
 
             }

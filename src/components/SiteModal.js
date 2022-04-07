@@ -1,19 +1,22 @@
 import React, { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from 'react-bootstrap'
 import { DataContext } from './Context'
 import {
     faPhone, faLocation, faBuilding,
     faExternalLink,
 } from '@fortawesome/free-solid-svg-icons';
+import ModalDataEntery from './ModalDataEntery'
 import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function SiteModal({ setShowSite, showSite }) {
 
     let navigation = useNavigate();
+    const [recordInfo] = useState({});
     const value = useContext(DataContext)
+    const [show, setShow] = useState(false);
     const { setData } = value
     const [sitedata, setSiteData] = useState({
         siteName: '',
@@ -26,27 +29,20 @@ function SiteModal({ setShowSite, showSite }) {
     const handleSiteSave = () => {
         const { siteName, siteAddress, siteContactNumber, extraHardware } = sitedata
         if (siteName && siteAddress && siteContactNumber && extraHardware) {
+            setShow(true)
             axios.post('https://servicemanagementsystem.herokuapp.com/api/site', sitedata)
                 .then(res => {
                     if (res.data.found) {
                         toast.info('Site Added Succesfully')
-
-                        axios.post('https://servicemanagementsystem.herokuapp.com/api/site', { siteName }).then(res => {
-                            if (res.data.found) {
-                                setData(res.data.found)
-                                setShowSite(false)
-                                setSiteData({
+                              setSiteData({
                                     siteName: '',
                                     siteAddress: '',
                                     siteContactNumber: '',
                                     extraHardware: '',
                                     hardware: [],
                                 })
-                                navigation('/')
-                            }
-                        }).catch(err => {
-
-                        })
+                        setData(res.data.found)
+                         
                     } else {
                         toast.info('Something went wrong')
                     }
@@ -70,10 +66,12 @@ function SiteModal({ setShowSite, showSite }) {
             extraHardware: '',
             hardware: [],
         })
+        setData('')
         setShowSite(false)
-        Navigate('/')
+        navigation('/') 
     }
     return (
+        <>
         <Modal fullscreen={true} show={showSite} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Adding New Site</Modal.Title>
@@ -124,6 +122,9 @@ function SiteModal({ setShowSite, showSite }) {
             </Modal.Footer>
             <ToastContainer />
         </Modal>
+
+         <ModalDataEntery show={show} setShow={setShow} recordInfo={recordInfo} />
+         </>
     )
 }
 

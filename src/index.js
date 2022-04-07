@@ -14,7 +14,7 @@ ReactDOM.render(
 
   <BrowserRouter>
     <DataContextProvider >
-
+    
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="/" element={<Home />} />

@@ -12,7 +12,7 @@ function SearchResult() {
         navigation('/oneSite')
     }
     return (
-        <>
+        <> 
             <ul className="container allResultList">
                 {searchData.map(search => {
                     return (

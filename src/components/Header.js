@@ -15,7 +15,7 @@ function Header() {
     const value = useContext(DataContext)
     const { setSpinner, setSearchData, setData } = value
 
-    const [showSite, setShowSite] = useState(false);
+    const [showSite, setShowSite] = useState()
     const [searchQuery, setSearchQuery] = useState()
     const [options, setOptions] = useState();
 
@@ -39,7 +39,10 @@ function Header() {
                 else if (res.data.found) {
 
                     setData(res.data.found)
-                    navigation('/oneSite')
+                    navigation('/oneSite',{
+                    siteName: searchQuery,
+                }
+                 )
                 } else if (res.data.foundError) {
                     setData('')
                     toast.error('error')

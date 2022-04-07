@@ -4,11 +4,12 @@ import '../styles/common.css'
 
 
 const Home = (props) => (
+    <div className="SvgContainer">
     <svg
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
         width={788.606}
-        height={505.465}
+        height={504.465}
         {...props}
         id="svg"
     >
@@ -82,6 +83,7 @@ const Home = (props) => (
             fill="#3f3d56"
         />
     </svg>
+    </div>
 )
 
 export default Home

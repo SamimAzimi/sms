@@ -10,6 +10,7 @@ import axios from 'axios'
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import { toast, ToastContainer } from 'react-toastify'
 import ModalDataEntery from './ModalDataEntery'
+
 function TableHeading({ siteinfo }) {
     const { siteName, siteAddress, siteContactNumber, siteNote } = siteinfo
     return (
@@ -30,21 +31,19 @@ function TableHeading({ siteinfo }) {
 
 function OneSite() {
     const [recordInfo] = useState({});
-
+    const navigation = useNavigate();
     const [show, setShow] = useState(false);
-    let navgiation = useNavigate()
     const value = useContext(DataContext)
-    const { data } = value
+    const { data} = value
 
     useEffect(() => {
-        if (data.length === 0) {
-            navgiation('/')
+        if(data.length===0 || data.length===null){
+            navigation('/')
         }
-
     }, [])
 
     const columns = [
-        { title: "Computer Type", field: "type", defaultGroupOrder: 0 },
+        { title: "Computer Type", field: "type",defaultGroupOrder: 0 },
         {
             title: "Computer Desc",
             field: "location",
@@ -199,6 +198,10 @@ function OneSite() {
                         isFreeAction: true,
                     }]}
                     options={{
+                          fixedColumns: {
+                            left: 2, 
+                            right: 1
+                        },
                         cellStyle: {
                             width: 300,
                             minWidth: 300
@@ -220,10 +223,10 @@ function OneSite() {
 
                     icons={tableIcons}
 
+                    
 
 
-
-                />}
+                />} 
             <ModalDataEntery show={show} setShow={setShow} recordInfo={recordInfo} />
             <ToastContainer />
         </>
