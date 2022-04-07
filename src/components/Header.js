@@ -13,9 +13,8 @@ import { DataContext } from './Context'
 import { Navbar, Container, } from 'react-bootstrap';
 function Header() {
     const value = useContext(DataContext)
-    const { setSpinner, toggleMenu, setToggleMenue, setSearchData, setData } = value
+    const { setSpinner, setSearchData, setData } = value
 
-    const [toggle, setToggle] = useState()
     const [showSite, setShowSite] = useState(false);
     const [searchQuery, setSearchQuery] = useState()
     const [options, setOptions] = useState();
@@ -128,40 +127,34 @@ function Header() {
             setSpinner(false)
         }
     }
-    const handleSearch = () => {
 
-        setToggle(!toggle)
-        if (toggleMenu) {
-            setToggleMenue(false)
-        }
-    }
 
     const handleOptionChange = (e) => {
         setOptions(e)
         setData('')
+         setSearchQuery('')
+        navigation('/')
     }
 
 
 
     return (
         <>
-            <Navbar bg="primary" expand="lg">
+            <Navbar className='coloralter' expand="lg">
                 <Container fluid>
-                    <Navbar.Brand ><h1 className='nameFonts'>Site Managment</h1></Navbar.Brand>
+                    <Navbar.Brand onClick={handleOptionChange} ><h1 className='nameFonts'>Site Managment</h1></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <div className="input-group ">
                             <span className="input-group-text" id="addon-wrapping">
                                 <button onClick={handleNewClick} tabIndex="1" type="button" className="btn btn-primary">New</button>
                             </span>
-                            <span onClick={handleSearch} className="input-group-text" id="addon-wrapping">
-                                <button type="button" tabIndex="2" className="btn btn-primary" onClick={() => setData('')}>{toggle ? "Close Advance Search" : "Advance Search"}</button>
-                            </span>
-                            {toggle &&
-                                <>
+                       
+                   
+                            
                                     <span className="input-group-text" >
                                         <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} className="form-select" aria-label="Default search query selction">
-                                            <option value="">select an option</option>
+                                            <option value="">Site Name</option>
                                             <option value="0">All Records</option>
                                             {/* <option value="1">Site Name</option>
                                             <option value="2">Site Contact</option>
@@ -171,8 +164,7 @@ function Header() {
                                             <option value="6">Apps Version</option> */}
                                         </select>
                                     </span>
-                                </>
-                            }
+                           
                             <input type="text" value={searchQuery || ''}
                                 onChange={e => setSearchQuery(e.target.value)} className="form-control"
                                 placeholder="Enter The Site Name"

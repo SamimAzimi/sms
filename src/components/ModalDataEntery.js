@@ -10,10 +10,66 @@ import { DataContext } from './Context'
 import { toast, ToastContainer } from 'react-toastify'
 import axios from 'axios'
 function ModalDataEntery({ setShow, show, recordInfo }) {
+
     const [disable, setdisabled] = useState(true)
     const value = useContext(DataContext)
     const { next, setNext, dataEntry, setDataEntry, data } = value
-    const handleClose = () => setShow(false);
+
+    const handleClose = () =>{
+    setNext({
+        firstNext: true,
+        secondNext: false,
+        thirdNext: false,
+        fourthNext: false,
+        fivithNext: false,
+    }) 
+    setShow(false);
+     setDataEntry(
+                    {
+                                    location: '',
+                                    Notes: '',
+                                    type: '',
+                                    MakeModel: '',
+                                    functions: '',
+                                    ServiceTagSerialNo: '',
+                                    CPU: '',
+                                    RAM: '',
+                                    HDD: '',
+                                    Graphic: '',
+                                    DVDDrive: '',
+                                    PowerSupply: '',
+                                    PowerSettoNever: Boolean,
+                                    sourceFile: '',
+                                    RaidLevel: '',
+                                    additionalSoftware: '',
+                                    apps: {
+                                        appsName: '',
+                                        appsVersion: '',
+                                        appsUserName: '',
+                                        appsPassword: '',
+                                    },
+                                    DB: {
+                                        DBinstalled: Boolean,
+                                        DBname: '',
+                                        DBVersion: '',
+                                        DBsaPassword: ''
+                                    },
+                                    OS: {
+                                        OSname: '',
+                                        OSVersion: '',
+                                        UserName: '',
+                                        password: '',
+                                        UpdateInstalled: Boolean,
+                                        UpdateTurnedOff: Boolean
+                                    },
+                                    network: {
+                                        IP: '',
+                                        subnetMask: '',
+                                        gateway: ''
+                                    }
+                                }
+                            )
+    }
     const { location,
         Notes,
         type,
@@ -58,7 +114,8 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
         if (next.firstNext) {
             if (location === "" || Notes === "" || type === "" || MakeModel === "" || functions === "" || ServiceTagSerialNo === "" || CPU === "" || RAM === "" || HDD === "" || Graphic === "" || DVDDrive === "" || PowerSupply === "" || PowerSettoNever === "" || sourceFile === "" || RaidLevel === "" || additionalSoftware === "") {
                 toast.info('Please Fill all the fields')
-            } {
+            } else
+            {
                 setNext({ firstNext: false, secondNext: true })
             }
         }
@@ -181,6 +238,48 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
 
 
     }
+
+    const handleBack =()=>{
+        const {secondNext,thirdNext,fourthNext,fivithNext}=next
+
+        if(secondNext){
+            setNext({
+            firstNext: true,
+            secondNext: false,
+            thirdNext: false,
+            fourthNext: false,
+            fivithNext: false,
+        })
+        }
+        if(thirdNext){
+        setNext({
+            firstNext: false,
+            secondNext: true,
+            thirdNext: false,
+            fourthNext: false,
+            fivithNext: false,
+            })
+        }
+         if(fourthNext){
+        setNext({
+            firstNext: false,
+            secondNext: false,
+            thirdNext: true,
+            fourthNext: false,
+            fivithNext: false,
+            })
+        }
+         if(fivithNext){
+        setNext({
+            firstNext: false,
+            secondNext: false,
+            thirdNext: false,
+            fourthNext: true,
+            fivithNext: false,
+            })
+        }
+    
+    }
     return (
         <>
             <Modal fullscreen={true} show={show} onHide={handleClose}>
@@ -193,6 +292,8 @@ function ModalDataEntery({ setShow, show, recordInfo }) {
                 {next.fourthNext && <OSEntry />}
                 {next.fivithNext && <DatabaseEntry />}
                 <Modal.Footer>
+                    {next.firstNext ? "": <Button variant='secondary' onClick={handleBack}>Back</Button>}
+                    
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
                     <Button variant="primary" disabled={disable ? "" : "false"} onClick={handleNext}>{next.fivithNext ? "Save" : "Next"} </Button>
                 </Modal.Footer>

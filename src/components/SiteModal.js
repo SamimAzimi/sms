@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Button } from 'react-bootstrap'
 import { DataContext } from './Context'
 import {
@@ -12,6 +12,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function SiteModal({ setShowSite, showSite }) {
 
+    let navigation = useNavigate();
     const value = useContext(DataContext)
     const { setData } = value
     const [sitedata, setSiteData] = useState({
@@ -21,7 +22,6 @@ function SiteModal({ setShowSite, showSite }) {
         extraHardware: '',
         hardware: [],
     });
-    let navigation = useNavigate();
 
     const handleSiteSave = () => {
         const { siteName, siteAddress, siteContactNumber, extraHardware } = sitedata
@@ -63,7 +63,15 @@ function SiteModal({ setShowSite, showSite }) {
 
     }
     const handleClose = () => {
+        setSiteData({
+            siteName: '',
+            siteAddress: '',
+            siteContactNumber: '',
+            extraHardware: '',
+            hardware: [],
+        })
         setShowSite(false)
+        Navigate('/')
     }
     return (
         <Modal fullscreen={true} show={showSite} onHide={handleClose}>
@@ -112,7 +120,7 @@ function SiteModal({ setShowSite, showSite }) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>Close</Button>
-                <Button variant="primary" onClick={handleSiteSave} >Save </Button>
+                <Button variant="primary" onClick={handleSiteSave}>Next </Button>
             </Modal.Footer>
             <ToastContainer />
         </Modal>
