@@ -8,6 +8,7 @@ import {
     faCodeBranch, faKey, faLaptopCode,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import AppsImage from '../../assets/file.png'
 function AppsEntry() {
 
     const val = useContext(DataContext)
@@ -15,9 +16,13 @@ function AppsEntry() {
     const { apps } = dataEntry
     return (
         <>
-            <Modal.Body>
+            <Modal.Body style={{
+                backgroundImage: `url(${AppsImage})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right"
+            }}>
                 <h1>App Section</h1>
-                <div class="d-flex flex-column ">
+                <div class="d-flex flex-column " >
                     <div class="input-group w-50 p-3">
                         <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faLaptopCode} /></span>
                         <input type="text" class="form-control"

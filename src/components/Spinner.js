@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Modal } from 'react-bootstrap'
 import { DataContext } from './Context'
+
 function Spinner() {
   const { spinner } = useContext(DataContext)
 

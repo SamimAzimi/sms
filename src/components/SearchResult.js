@@ -18,9 +18,9 @@ function SearchResult() {
                 </div>
                 :
                 <ul className="container allResultList">
-                    {searchData.map(search => {
+                    {searchData.map((search, i) => {
                         return (
-                            <li onClick={() => handleClick(search)}>{search.siteName}</li>
+                            <li key={i} onClick={() => handleClick(search)}>{search.siteName}</li>
                         )
                     })}
                 </ul>

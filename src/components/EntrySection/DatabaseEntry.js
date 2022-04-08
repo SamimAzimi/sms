@@ -6,14 +6,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-bootstrap/Modal'
 import { DataContext } from '../Context'
-
+import DbImage from '../../assets/dbImage.png'
 function DatabaseEntry() {
     const val = useContext(DataContext)
     const { dataEntry, setDataEntry } = val
     const { DB } = dataEntry
     return (
         <>
-            <Modal.Body>
+            <Modal.Body style={{
+                backgroundImage: `url(${DbImage})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right"
+            }}>
                 <h1>Database Section</h1>
                 <div className="d-flex flex-column w-100" >
                     <div class="input-group w-50 p-3">

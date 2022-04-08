@@ -8,10 +8,10 @@ import {
 function App() {
   return (
     <>
+      <Spinner />
       <Header />
       <Outlet />
 
-      <Spinner  />
     </>
   );
 }

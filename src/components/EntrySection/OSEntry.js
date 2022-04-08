@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import OsImage from '../../assets/osImage.png'
 import {
     faCodeBranch,
     faKey, faCheckCircle, faMinusCircle, faLaptopCode, faUser,
@@ -11,7 +12,11 @@ function OSEntry() {
     const { dataEntry, setDataEntry } = val
     const { OS } = dataEntry
     return (
-        <Modal.Body>
+        <Modal.Body style={{
+            backgroundImage: `url(${OsImage})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right"
+        }}>
             <h1>Operating System Section</h1>
             <div className="d-flex flex-column w-100" >
                 <div class="input-group w-50 p-3">

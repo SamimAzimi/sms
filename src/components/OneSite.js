@@ -34,16 +34,16 @@ function OneSite() {
     const navigation = useNavigate();
     const [show, setShow] = useState(false);
     const value = useContext(DataContext)
-    const { data} = value
+    const { data } = value
 
     useEffect(() => {
-        if(data.length===0 || data.length===null){
+        if (data.length === 0 || data.length === null) {
             navigation('/')
         }
     }, [])
 
     const columns = [
-        { title: "Computer Type", field: "type",defaultGroupOrder: 0 },
+        { title: "Computer Type", field: "type", defaultGroupOrder: 0 },
         {
             title: "Computer Desc",
             field: "location",
@@ -149,6 +149,7 @@ function OneSite() {
 
 
     const downloadPDF = () => {
+
         axios
             .get(`https://servicemanagementsystem.herokuapp.com/api/pdf/${data.siteName}`, {
                 responseType: 'blob',
@@ -198,8 +199,8 @@ function OneSite() {
                         isFreeAction: true,
                     }]}
                     options={{
-                          fixedColumns: {
-                            left: 2, 
+                        fixedColumns: {
+                            left: 2,
                             right: 1
                         },
                         cellStyle: {
@@ -223,10 +224,10 @@ function OneSite() {
 
                     icons={tableIcons}
 
-                    
 
 
-                />} 
+
+                />}
             <ModalDataEntery show={show} setShow={setShow} recordInfo={recordInfo} />
             <ToastContainer />
         </>

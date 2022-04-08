@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -13,11 +13,11 @@ import { DataContext } from './Context'
 import { Navbar, Container, } from 'react-bootstrap';
 function Header() {
     const value = useContext(DataContext)
-    const { setSpinner, setSearchData, setData } = value
+    const { setSpinner, spinner, setSearchData, setData } = value
 
     const [showSite, setShowSite] = useState()
-    const [searchQuery, setSearchQuery] = useState()
-    const [options, setOptions] = useState();
+    const [searchQuery, setSearchQuery] = useState('')
+    const [options, setOptions] = useState('1');
 
     let navigation = useNavigate();
     const handleNewClick = () => {
@@ -26,105 +26,67 @@ function Header() {
     }
 
     const handleSearchClick = () => {
-        setSpinner(true)
+        if (options === "1") {
+            if (searchQuery.length === 0) {
 
-        if (options === undefined || options === "") {
-            axios.post('https://servicemanagementsystem.herokuapp.com/api/siteName ', { siteName: searchQuery }).then(res => {
-
-                if (res.data.notfound) {
-
-                    toast.info(res.data.notfound)
-
-                }
-                else if (res.data.found) {
-
-                    setData(res.data.found)
-                    navigation('/oneSite', {
-                        siteName: searchQuery,
-                    }
-                    )
-                } else if (res.data.foundError) {
-                    setData('')
-                    toast.error('error')
-                }
-                setSpinner(false)
-            }).catch(err => {
-                console.log(err)
-            })
-            setSpinner(false)
-        }
-        else if (options === "0") {
-            axios.get('https://servicemanagementsystem.herokuapp.com/api/allRecords').then(res => {
-                if (res.data.notfound) {
-                    toast.info(res.data.notfound)
-                }
-                else {
-                    setSearchData(res.data)
-                    navigation('/searchResult')
-                }
-                setSpinner(false)
-            }).catch(err => {
-                console.log(err)
-            })
-
-        }
-        else if (options === "1" && searchQuery) {
-
-            axios.post('https://servicemanagementsystem.herokuapp.com/api/recordName', { siteName: searchQuery }).then(res => {
-
-                if (res.data.notfound) {
-
-                    toast.info(res.data.notfound)
-                }
-                else {
-
-                    setData(res.data)
-                }
-                setSpinner(false)
-            }).catch(err => {
-                console.log(err)
-            })
-            setSpinner(false)
-        }
-        else if (options === "2" && searchQuery) {
-            if (typeof (options) !== "string") {
-                axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options: options, query: searchQuery }).then(res => {
-
-                    if (res.data.notfound) {
-                        toast.info(res.data.notfound)
-                    }
-                    else {
-
-                        setData(res.data)
-                    }
-                    setSpinner(false)
-                }).catch(err => {
-                    console.log(err)
+                toast.error('Please Enter Site Name', {
+                    position: toast.POSITION.TOP_LEFT
                 })
             } else {
-                toast.info("Please Enter A Numerical Value in Search Box")
-                setSpinner(false)
+                setSpinner(true)
+                axios.post('https://servicemanagementsystem.herokuapp.com/api/siteName ', { siteName: searchQuery }).then(res => {
+                    if (res.data.notfound) {
+                        toast.info(res.data.notfound, {
+                            position: toast.POSITION.TOP_LEFT
+                        })
+                        setData('')
+                        setSpinner(false)
+                    }
+                    else if (res.data.found) {
+
+                        setData(res.data.found)
+                        setSpinner(false)
+                        navigation('/oneSite')
+
+                    } else if (res.data.foundError) {
+                        setData('')
+
+                        toast.error('error', {
+                            position: toast.POSITION.TOP_LEFT
+                        })
+                        setSpinner(false)
+                    }
+
+                }).catch(err => {
+                    console.log(err)
+                    setSpinner(false)
+                })
             }
-
-
         }
-        else if (options > 2 && searchQuery) {
-
-            axios.post('https://servicemanagementsystem.herokuapp.com/api/options', { options: options, query: searchQuery }).then(res => {
-
+        else if (options === "2") {
+            setSpinner(true)
+            axios.get('https://servicemanagementsystem.herokuapp.com/api/allRecords').then(res => {
                 if (res.data.notfound) {
-                    toast.info(res.data.notfound)
+                    toast.info(res.data.notfound, {
+                        position: toast.POSITION.TOP_LEFT
+                    })
+                    setSpinner(false)
+
                 }
                 else {
 
-                    setData(res.data)
+                    setSearchData(res.data)
+                    setSpinner(false)
+                    navigation('/searchResult')
                 }
-                setSpinner(false)
+
             }).catch(err => {
                 console.log(err)
+                setSpinner(false)
             })
+
         }
-        setSpinner(false)
+
     }
 
 
@@ -153,8 +115,8 @@ function Header() {
 
                             <span className="input-group-text" >
                                 <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} className="form-select" aria-label="Default search query selction">
-                                    <option value="">Site Name</option>
-                                    <option value="0">All Records</option>
+                                    <option value="1">Site Name</option>
+                                    <option value="2">All Records</option>
                                     {/* <option value="1">Site Name</option>
                                             <option value="2">Site Contact</option>
                                             <option value="3">Hardware Model</option>

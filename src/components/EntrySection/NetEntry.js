@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import NetworkImage from '../../assets/networkImage.png'
 import {
     faNetworkWired,
     faRadio,
@@ -12,7 +13,12 @@ function NetEntry() {
     const { dataEntry, setDataEntry } = val
     const { network } = dataEntry
     return (
-        <Modal.Body>
+        <Modal.Body style={{
+            backgroundImage: `url(${NetworkImage})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right",
+
+        }}>
             <h1>Network Section</h1>
             <div className="d-flex flex-column w-100" >
                 <div class="input-group w-50 p-3">
