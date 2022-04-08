@@ -39,10 +39,10 @@ function Header() {
                 else if (res.data.found) {
 
                     setData(res.data.found)
-                    navigation('/oneSite',{
-                    siteName: searchQuery,
-                }
-                 )
+                    navigation('/oneSite', {
+                        siteName: searchQuery,
+                    }
+                    )
                 } else if (res.data.foundError) {
                     setData('')
                     toast.error('error')
@@ -60,10 +60,7 @@ function Header() {
                 }
                 else {
                     setSearchData(res.data)
-                    setTimeout(() => {
-                        navigation('/searchResult')
-                    }, 10000)
-
+                    navigation('/searchResult')
                 }
                 setSpinner(false)
             }).catch(err => {
@@ -72,6 +69,7 @@ function Header() {
 
         }
         else if (options === "1" && searchQuery) {
+
             axios.post('https://servicemanagementsystem.herokuapp.com/api/recordName', { siteName: searchQuery }).then(res => {
 
                 if (res.data.notfound) {
@@ -86,7 +84,7 @@ function Header() {
             }).catch(err => {
                 console.log(err)
             })
-
+            setSpinner(false)
         }
         else if (options === "2" && searchQuery) {
             if (typeof (options) !== "string") {
@@ -125,17 +123,15 @@ function Header() {
             }).catch(err => {
                 console.log(err)
             })
-        } else {
-            toast.info("Please fill the Search Box")
-            setSpinner(false)
         }
+        setSpinner(false)
     }
 
 
     const handleOptionChange = (e) => {
         setOptions(e)
         setData('')
-         setSearchQuery('')
+        setSearchQuery('')
         navigation('/')
     }
 
@@ -152,22 +148,22 @@ function Header() {
                             <span className="input-group-text" id="addon-wrapping">
                                 <button onClick={handleNewClick} tabIndex="1" type="button" className="btn btn-primary">New</button>
                             </span>
-                       
-                   
-                            
-                                    <span className="input-group-text" >
-                                        <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} className="form-select" aria-label="Default search query selction">
-                                            <option value="">Site Name</option>
-                                            <option value="0">All Records</option>
-                                            {/* <option value="1">Site Name</option>
+
+
+
+                            <span className="input-group-text" >
+                                <select value={options} tabIndex="3" onChangeCapture={e => handleOptionChange(e.target.value)} className="form-select" aria-label="Default search query selction">
+                                    <option value="">Site Name</option>
+                                    <option value="0">All Records</option>
+                                    {/* <option value="1">Site Name</option>
                                             <option value="2">Site Contact</option>
                                             <option value="3">Hardware Model</option>
                                             <option value="4">Hardware Serial Number</option>
                                             <option value="5">Apps Name</option>
                                             <option value="6">Apps Version</option> */}
-                                        </select>
-                                    </span>
-                           
+                                </select>
+                            </span>
+
                             <input type="text" value={searchQuery || ''}
                                 onChange={e => setSearchQuery(e.target.value)} className="form-control"
                                 placeholder="Enter The Site Name"
