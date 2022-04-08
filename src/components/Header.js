@@ -34,7 +34,7 @@ function Header() {
                 if (res.data.notfound) {
 
                     toast.info(res.data.notfound)
-                    setData('')
+
                 }
                 else if (res.data.found) {
 
@@ -164,7 +164,7 @@ function Header() {
                                 </select>
                             </span>
 
-                            <input type="text" value={searchQuery || ''}
+                            <input type="text" value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)} className="form-control"
                                 placeholder="Enter The Site Name"
 
